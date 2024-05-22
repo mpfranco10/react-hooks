@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export const useDefault = <T>(initialValue: T, defaultValue: T) => {
-  const [state, setState] = useState<T>(initialValue);
+type OptionalT<T> = T | undefined | null;
+
+export const useDefault = <T>(
+  initialValue: T,
+  defaultValue: T
+): [T, Dispatch<SetStateAction<OptionalT<T>>>] => {
+  const [state, setState] = useState<OptionalT<T>>(initialValue);
 
   if (typeof state === "undefined" || state === null) {
     return [defaultValue, setState];
