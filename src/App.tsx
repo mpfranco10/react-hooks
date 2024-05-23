@@ -2,6 +2,12 @@ import { ReactNode, useState } from "react";
 import "./App.css";
 import { useDefault } from "./hooks/useDefault";
 import { useDocumentTitle } from "./hooks/useDocumentTitle";
+import {
+  BYTES_ICON,
+  NEWSLETTER_ICON,
+  UI_DEV_ICON,
+  useFavicon,
+} from "./hooks/useFavicon";
 import usePreferredLanguage from "./hooks/usePreferredLanguage";
 import { usePrevious } from "./hooks/usePrevious";
 import { useToggle } from "./hooks/useToggle";
@@ -43,6 +49,9 @@ function App() {
 
   const [title, setTitle] = useState("React hooks");
   useDocumentTitle(title);
+
+  const [favicon, setFavicon] = useState(UI_DEV_ICON);
+  useFavicon(favicon);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -95,6 +104,17 @@ function App() {
       <HookContainer>
         <h2>Browser preferred language</h2>
         <p>{language}</p>
+      </HookContainer>
+
+      <HookContainer>
+        <h2>Browser Favicon</h2>
+        <FlexDiv>
+          <button onClick={() => setFavicon(UI_DEV_ICON)}>ui.dev icon</button>
+          <button onClick={() => setFavicon(BYTES_ICON)}>bytes icon</button>
+          <button onClick={() => setFavicon(NEWSLETTER_ICON)}>
+            react newsletter icon
+          </button>
+        </FlexDiv>
       </HookContainer>
     </div>
   );
