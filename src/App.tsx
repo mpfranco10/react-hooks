@@ -10,8 +10,10 @@ import {
   PreviousDemo,
   QueueContainer,
   ScrollDemo,
+  TimeoutDemo,
   TitleDemo,
   ToggleDemo,
+  WindowSizeDemo,
 } from "./AuxiliarComponents";
 
 const HookContainer = ({
@@ -85,6 +87,14 @@ const App = () => (
 
       <HookContainer title="Use queue">
         <QueueContainer />
+      </HookContainer>
+
+      <HookContainer title="Use timeout">
+        <TimeoutDemo />
+      </HookContainer>
+
+      <HookContainer title="Use window size">
+        <WindowSizeDemo />
       </HookContainer>
     </div>
   </div>

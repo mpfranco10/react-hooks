@@ -14,7 +14,9 @@ import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
 import usePreferredLanguage from "./hooks/usePreferredLanguage";
 import { usePrevious } from "./hooks/usePrevious";
 import { useQueue } from "./hooks/useQueue";
+import useTimeout from "./hooks/useTimeout";
 import { useToggle } from "./hooks/useToggle";
+import { useWindowSize } from "./hooks/useWindowSize";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -283,6 +285,94 @@ export const ScrollDemo = () => {
         {`${openScrollComponent ? "Close" : "Open"} component`}{" "}
       </button>
       {openScrollComponent && <ScrollComponent />}
+    </>
+  );
+};
+
+interface BombProps {
+  hasExploded: boolean;
+  hasDefused: boolean;
+  handleClick: () => void;
+}
+
+const emojiSize = { fontSize: "5rem" };
+
+const Bomb = ({ hasExploded, hasDefused, handleClick }: BombProps) => {
+  if (hasExploded) {
+    return (
+      <figure>
+        <span role="img" aria-label="Explosion Emoji" style={emojiSize}>
+          💥
+        </span>
+        <figcaption>You lose</figcaption>
+      </figure>
+    );
+  }
+
+  if (hasDefused) {
+    return (
+      <figure>
+        <span role="img" aria-label="Explosion Emoji" style={emojiSize}>
+          🎉
+        </span>
+        <figcaption>You Win</figcaption>
+      </figure>
+    );
+  }
+
+  return (
+    <button className="bomb" onClick={handleClick}>
+      <span role="img" aria-label="Dynamite Emoji" style={emojiSize}>
+        🧨
+      </span>
+    </button>
+  );
+};
+
+export const TimeoutDemo = () => {
+  const [hasDefused, setHasDefused] = useState(false);
+  const [hasExploded, setHasExploded] = useState(false);
+  const [delay, setDelay] = useState(1000);
+
+  const clear = useTimeout(() => {
+    setHasExploded(!hasExploded);
+  }, delay);
+
+  const handleClick = () => {
+    clear();
+    setHasDefused(true);
+  };
+
+  return (
+    <>
+      <p>You have 1s to defuse (click) the bomb or it will explode </p>
+      <div style={{ marginBottom: "1rem" }}>
+        <button
+          onClick={() => {
+            setHasDefused(false);
+            setHasExploded(false);
+            setDelay((d) => (d === 1000 ? d + 1 : d - 1));
+          }}
+        >
+          Reset
+        </button>
+      </div>
+
+      <Bomb
+        hasDefused={hasDefused}
+        hasExploded={hasExploded}
+        handleClick={handleClick}
+      />
+    </>
+  );
+};
+
+export const WindowSizeDemo = () => {
+  const size = useWindowSize();
+  return (
+    <>
+      <p>{`Width: ${size.width}`}</p>
+      <p>{`Height: ${size.height}`}</p>
     </>
   );
 };
