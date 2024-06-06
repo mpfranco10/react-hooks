@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useCopyToClipboard } from "./hooks/useCopyToClipboard";
 import { useCounter } from "./hooks/useCounter";
 import { useDefault } from "./hooks/useDefault";
@@ -10,12 +10,14 @@ import {
   useFavicon,
 } from "./hooks/useFavicon";
 import { useInterval } from "./hooks/useInterval";
+import { useList } from "./hooks/useList";
 import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
 import usePreferredLanguage from "./hooks/usePreferredLanguage";
 import { usePrevious } from "./hooks/usePrevious";
 import { useQueue } from "./hooks/useQueue";
 import useTimeout from "./hooks/useTimeout";
 import { useToggle } from "./hooks/useToggle";
+import { useVisibilityChange } from "./hooks/useVisibilityChange";
 import { useWindowSize } from "./hooks/useWindowSize";
 
 export const FlexDiv = ({
@@ -32,6 +34,7 @@ export const FlexDiv = ({
       justifyContent: "center",
       alignItems: "center",
       flexDirection: rowDirection ? "row" : "column",
+      flexWrap: "wrap",
     }}
   >
     {children}
@@ -373,6 +376,83 @@ export const WindowSizeDemo = () => {
     <>
       <p>{`Width: ${size.width}`}</p>
       <p>{`Height: ${size.height}`}</p>
+    </>
+  );
+};
+
+export const VisibilityDemo = () => {
+  const documentVisible = useVisibilityChange();
+  const [tabAwayCount, setTabAwayCount] = useState(0);
+
+  useEffect(() => {
+    if (documentVisible === false) {
+      setTabAwayCount((c) => c + 1);
+    }
+  }, [documentVisible]);
+
+  return (
+    <>
+      <p>Tab away to see this counter increase!</p>
+      <h3>{`Tab away count: ${tabAwayCount}`}</h3>
+    </>
+  );
+};
+
+export const ListDemo = () => {
+  const [list, { set, push, removeAt, insertAt, clear }] = useList([
+    "First",
+    "Second",
+    "Third",
+  ]);
+
+  const [inputValue, setInputValue] = useState("");
+
+  return (
+    <>
+      <FlexDiv>
+        <button
+          disabled={list.length < 1}
+          className="link"
+          onClick={() => insertAt(1, "Inserted at first")}
+        >
+          Insert After First
+        </button>
+        <button
+          disabled={list.length < 2}
+          className="link"
+          onClick={() => removeAt(1)}
+        >
+          Remove Second Item
+        </button>
+        <button className="link" onClick={() => set([1, 2, 3])}>
+          Set 1, 2, 3
+        </button>
+        <button className="link" onClick={() => clear()}>
+          Clear
+        </button>
+      </FlexDiv>
+      <FlexDiv>
+        <input
+          name="add"
+          id="add"
+          title="Add"
+          style={{ marginTop: "1rem" }}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        <button
+          style={{ marginTop: "1rem" }}
+          disabled={!inputValue}
+          onClick={() => {
+            push(inputValue);
+            setInputValue("");
+          }}
+        >
+          Add
+        </button>
+      </FlexDiv>
+
+      <p>{list.join(", ")}</p>
     </>
   );
 };

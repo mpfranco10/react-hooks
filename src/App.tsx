@@ -7,12 +7,14 @@ import {
   FaviconDemo,
   IntervalDemo,
   LanguageDemo,
+  ListDemo,
   PreviousDemo,
   QueueContainer,
   ScrollDemo,
   TimeoutDemo,
   TitleDemo,
   ToggleDemo,
+  VisibilityDemo,
   WindowSizeDemo,
 } from "./AuxiliarComponents";
 
@@ -95,6 +97,14 @@ const App = () => (
 
       <HookContainer title="Use window size">
         <WindowSizeDemo />
+      </HookContainer>
+
+      <HookContainer title="Use document visibility change">
+        <VisibilityDemo />
+      </HookContainer>
+
+      <HookContainer title="Use list">
+        <ListDemo />
       </HookContainer>
     </div>
   </div>
