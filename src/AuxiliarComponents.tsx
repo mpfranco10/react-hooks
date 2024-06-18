@@ -1,5 +1,6 @@
 import { startCase } from "lodash";
 import { ReactNode, useEffect, useState } from "react";
+import { useContinuousRetry } from "./hooks/useContinuousRetry";
 import { useCopyToClipboard } from "./hooks/useCopyToClipboard";
 import { useCounter } from "./hooks/useCounter";
 import { useDebounce } from "./hooks/useDebounce";
@@ -547,6 +548,38 @@ export const DebounceDemo = () => {
         onChange={(event) => setInputVal(event.target.value)}
       />
       <p>Debounced value is: {debouncedValue}</p>
+    </>
+  );
+};
+
+export const RetryDemo = () => {
+  const [count, setCount] = useState(0);
+  const [delay, setDelay] = useState(1000);
+  const hasResolved = useContinuousRetry(() => {
+    return count >= 5;
+  }, delay);
+
+  return (
+    <>
+      <p>
+        This function will run until count reaches 5. See console output to see
+        function retrying
+      </p>
+      <FlexDiv>
+        <button className="primary" onClick={() => setCount(count + 1)}>
+          Increase count
+        </button>
+        <button
+          onClick={() => {
+            setDelay((prevDelay) => (prevDelay === 1000 ? 1001 : 1000));
+            setCount(0);
+          }}
+        >
+          Reset
+        </button>
+      </FlexDiv>
+
+      <pre>{JSON.stringify({ hasResolved, count }, null, 2)}</pre>
     </>
   );
 };

@@ -12,6 +12,7 @@ import {
   ObjectStateDemo,
   PreviousDemo,
   QueueContainer,
+  RetryDemo,
   ScrollDemo,
   TimeoutDemo,
   TitleDemo,
@@ -115,6 +116,10 @@ const App = () => (
 
       <HookContainer title="Use debounce">
         <DebounceDemo />
+      </HookContainer>
+
+      <HookContainer title="Use continous retry">
+        <RetryDemo />
       </HookContainer>
     </div>
   </div>
