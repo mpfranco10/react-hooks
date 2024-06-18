@@ -1,6 +1,8 @@
+import { startCase } from "lodash";
 import { ReactNode, useEffect, useState } from "react";
 import { useCopyToClipboard } from "./hooks/useCopyToClipboard";
 import { useCounter } from "./hooks/useCounter";
+import { useDebounce } from "./hooks/useDebounce";
 import { useDefault } from "./hooks/useDefault";
 import { useDocumentTitle } from "./hooks/useDocumentTitle";
 import {
@@ -12,6 +14,7 @@ import {
 import { useInterval } from "./hooks/useInterval";
 import { useList } from "./hooks/useList";
 import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
+import { useObjectState } from "./hooks/useObjectState";
 import usePreferredLanguage from "./hooks/usePreferredLanguage";
 import { usePrevious } from "./hooks/usePrevious";
 import { useQueue } from "./hooks/useQueue";
@@ -19,7 +22,6 @@ import useTimeout from "./hooks/useTimeout";
 import { useToggle } from "./hooks/useToggle";
 import { useVisibilityChange } from "./hooks/useVisibilityChange";
 import { useWindowSize } from "./hooks/useWindowSize";
-
 export const FlexDiv = ({
   rowDirection = true,
   children,
@@ -453,6 +455,98 @@ export const ListDemo = () => {
       </FlexDiv>
 
       <p>{list.join(", ")}</p>
+    </>
+  );
+};
+
+interface IObjectKeys {
+  [key: string]: string | number;
+}
+
+interface Penguin extends IObjectKeys {
+  name: string;
+  fishEaten: number;
+  napHours: number;
+  squidEaten: number;
+}
+
+const initialObject: Penguin = {
+  name: "Peter",
+  fishEaten: 244,
+  napHours: 123,
+  squidEaten: 6,
+};
+
+export const ObjectStateDemo = () => {
+  const [objectState, setObjectState] = useObjectState(initialObject);
+
+  return (
+    <>
+      <FlexDiv>
+        <button
+          onClick={() =>
+            setObjectState((prevState: Penguin) => ({
+              fishEaten: prevState.fishEaten + 1,
+            }))
+          }
+        >
+          Eat a fish 🐟
+        </button>
+        <button
+          onClick={() =>
+            setObjectState((prevState: Penguin) => ({
+              napHours: prevState.napHours + 1,
+            }))
+          }
+        >
+          Take a nap 🛏️
+        </button>
+        <button
+          onClick={() =>
+            setObjectState((prevState: Penguin) => ({
+              squidEaten: prevState.squidEaten + 1,
+            }))
+          }
+        >
+          Eat a squid 🦑
+        </button>
+        <button onClick={() => setObjectState(initialObject)}>Reset</button>
+      </FlexDiv>
+      <table>
+        <thead>
+          <tr>
+            {Object.keys(objectState).map((key) => {
+              return <th key={key}>{startCase(key)}</th>;
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {Object.keys(objectState).map((key) => {
+              // @ts-expect-error key is safe to use here
+              const val = objectState[key];
+              return <td key={val}>{val}</td>;
+            })}
+          </tr>
+        </tbody>
+      </table>
+    </>
+  );
+};
+
+export const DebounceDemo = () => {
+  const [inputVal, setInputVal] = useState("");
+  const debouncedValue = useDebounce(inputVal, 300);
+
+  return (
+    <>
+      <input
+        type="text"
+        title="Type something"
+        value={inputVal}
+        onChange={(event) => setInputVal(event.target.value)}
+      />
+      <p>Debounced value is: {debouncedValue}</p>
     </>
   );
 };

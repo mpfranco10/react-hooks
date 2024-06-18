@@ -3,11 +3,13 @@ import "./App.css";
 import {
   CopyDemo,
   CounterDemo,
+  DebounceDemo,
   DefaultValueDemo,
   FaviconDemo,
   IntervalDemo,
   LanguageDemo,
   ListDemo,
+  ObjectStateDemo,
   PreviousDemo,
   QueueContainer,
   ScrollDemo,
@@ -105,6 +107,14 @@ const App = () => (
 
       <HookContainer title="Use list">
         <ListDemo />
+      </HookContainer>
+
+      <HookContainer title="Use object state">
+        <ObjectStateDemo />
+      </HookContainer>
+
+      <HookContainer title="Use debounce">
+        <DebounceDemo />
       </HookContainer>
     </div>
   </div>
