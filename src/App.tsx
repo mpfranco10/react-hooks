@@ -6,6 +6,7 @@ import {
   DebounceDemo,
   DefaultValueDemo,
   FaviconDemo,
+  HistoryStateDemo,
   IntervalDemo,
   LanguageDemo,
   ListDemo,
@@ -118,8 +119,12 @@ const App = () => (
         <DebounceDemo />
       </HookContainer>
 
-      <HookContainer title="Use continous retry">
+      <HookContainer title="Use continuous retry">
         <RetryDemo />
+      </HookContainer>
+
+      <HookContainer title="Use history state">
+        <HistoryStateDemo />
       </HookContainer>
     </div>
   </div>

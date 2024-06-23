@@ -12,6 +12,7 @@ import {
   UI_DEV_ICON,
   useFavicon,
 } from "./hooks/useFavicon";
+import { useHistoryState } from "./hooks/useHistoryState";
 import { useInterval } from "./hooks/useInterval";
 import { useList } from "./hooks/useList";
 import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
@@ -38,6 +39,7 @@ export const FlexDiv = ({
       alignItems: "center",
       flexDirection: rowDirection ? "row" : "column",
       flexWrap: "wrap",
+      marginBottom: "1rem",
     }}
   >
     {children}
@@ -580,6 +582,94 @@ export const RetryDemo = () => {
       </FlexDiv>
 
       <pre>{JSON.stringify({ hasResolved, count }, null, 2)}</pre>
+    </>
+  );
+};
+
+interface HistoryExample {
+  items: { id: string; name: string }[];
+}
+
+export const HistoryStateDemo = () => {
+  const { state, set, undo, redo, clear, canUndo, canRedo } = useHistoryState({
+    items: [],
+  } as HistoryExample);
+
+  const [inputVal, setInputVal] = useState("");
+
+  const exampleState = state as HistoryExample;
+
+  const addTodo = (val: string) => {
+    set({
+      ...exampleState,
+      items: exampleState.items.concat({ id: crypto.randomUUID(), name: val }),
+    });
+  };
+
+  const removeTodo = (id: string) => {
+    set({
+      ...exampleState,
+      items: exampleState.items.filter((item) => item.id !== id),
+    });
+  };
+
+  return (
+    <>
+      <p>Allows to undo and redo state</p>
+      <FlexDiv>
+        <button disabled={!canUndo} className="link" onClick={undo}>
+          Undo
+        </button>
+        <button disabled={!canRedo} className="link" onClick={redo}>
+          Redo
+        </button>
+
+        <button
+          disabled={!exampleState.items.length}
+          className="link"
+          onClick={clear}
+        >
+          Clear
+        </button>
+      </FlexDiv>
+
+      <FlexDiv>
+        <input
+          type="text"
+          title="Type something"
+          value={inputVal}
+          onChange={(event) => setInputVal(event.target.value)}
+        />
+        <button
+          disabled={!inputVal}
+          className="link"
+          onClick={() => {
+            addTodo(inputVal);
+            setInputVal("");
+          }}
+        >
+          Add
+        </button>
+      </FlexDiv>
+      <ul>
+        {exampleState.items.map((item) => {
+          return (
+            <li
+              key={item.id}
+              style={{ listStyleType: "none", marginBottom: "0.5rem" }}
+            >
+              <span>{item.name}</span>
+              <button
+                className="link"
+                onClick={() => removeTodo(item.id)}
+                style={{ marginLeft: "1rem" }}
+              >
+                Delete
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 };
