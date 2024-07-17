@@ -1,5 +1,5 @@
 import { startCase } from "lodash";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { useContinuousRetry } from "./hooks/useContinuousRetry";
 import { useCopyToClipboard } from "./hooks/useCopyToClipboard";
 import { useCounter } from "./hooks/useCounter";
@@ -24,6 +24,8 @@ import useTimeout from "./hooks/useTimeout";
 import { useToggle } from "./hooks/useToggle";
 import { useVisibilityChange } from "./hooks/useVisibilityChange";
 import { useWindowSize } from "./hooks/useWindowSize";
+import useRandomInterval from "./hooks/useRandomInterval";
+import { useEventListener } from "./hooks/useEventListener";
 export const FlexDiv = ({
   rowDirection = true,
   children,
@@ -670,6 +672,47 @@ export const HistoryStateDemo = () => {
           );
         })}
       </ul>
+    </>
+  );
+};
+
+export const EventListenerDemo = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [inputIsFocused, setInputIsFocused] = useState(false);
+  useEventListener(inputRef, "focus", () => setInputIsFocused(true));
+  useEventListener(inputRef, "blur", () => setInputIsFocused(false));
+
+  return (
+    <>
+      <p>Added a focus callback to the input. Focus it to see the message!</p>
+      <input
+        type="text"
+        id="copy"
+        name="copy"
+        ref={inputRef}
+        autoComplete="off"
+      />
+      <p>{`Input is ${inputIsFocused ? "" : "not"} focused`}</p>
+    </>
+  );
+};
+
+export const RandomIntervalDemo = () => {
+  const [count, setCount] = useState(0);
+  const stopTimeout = useRandomInterval(() => setCount((c) => c + 1), {
+    minDelay: 500,
+    maxDelay: 1500,
+  });
+
+  return (
+    <>
+      <p>
+        The counter will increase in a random time interval between 500ms and 2s
+      </p>
+      <p>{count}</p>
+      <button className="primary" onClick={stopTimeout}>
+        Stop
+      </button>
     </>
   );
 };

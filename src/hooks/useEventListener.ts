@@ -1,14 +1,14 @@
 import {
-  MutableRefObject,
+  RefObject,
   useEffect,
   experimental_useEffectEvent as useEffectEvent,
 } from "react";
 
 export const useEventListener = <T extends HTMLElement>(
-  target: T | MutableRefObject<T>,
+  target: T | RefObject<T>,
   eventName: string,
   handler: () => void,
-  options: never
+  options?: never
 ) => {
   const onEvent = useEffectEvent(handler);
 

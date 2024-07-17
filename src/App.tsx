@@ -5,6 +5,7 @@ import {
   CounterDemo,
   DebounceDemo,
   DefaultValueDemo,
+  EventListenerDemo,
   FaviconDemo,
   HistoryStateDemo,
   IntervalDemo,
@@ -13,6 +14,7 @@ import {
   ObjectStateDemo,
   PreviousDemo,
   QueueContainer,
+  RandomIntervalDemo,
   RetryDemo,
   ScrollDemo,
   TimeoutDemo,
@@ -125,6 +127,14 @@ const App = () => (
 
       <HookContainer title="Use history state">
         <HistoryStateDemo />
+      </HookContainer>
+
+      <HookContainer title="Use random interval">
+        <RandomIntervalDemo />
+      </HookContainer>
+
+      <HookContainer title="Event listener">
+        <EventListenerDemo />
       </HookContainer>
     </div>
   </div>
