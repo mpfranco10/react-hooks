@@ -24,8 +24,9 @@ import useTimeout from "./hooks/useTimeout";
 import { useToggle } from "./hooks/useToggle";
 import { useVisibilityChange } from "./hooks/useVisibilityChange";
 import { useWindowSize } from "./hooks/useWindowSize";
-import useRandomInterval from "./hooks/useRandomInterval";
+import { useRandomInterval } from "./hooks/useRandomInterval";
 import { useEventListener } from "./hooks/useEventListener";
+
 export const FlexDiv = ({
   rowDirection = true,
   children,

@@ -14,10 +14,10 @@ interface IntervalDelay {
   maxDelay: number;
 }
 
-export default function useRandomInterval(
+export const useRandomInterval = (
   cb: () => void,
   { minDelay, maxDelay }: IntervalDelay
-) {
+) => {
   const timeoutId = useRef<null | number>(null);
   const onInterval = useEffectEvent(cb);
 
@@ -42,4 +42,4 @@ export default function useRandomInterval(
   }, [minDelay, maxDelay, handleClearTimeout]);
 
   return handleClearTimeout;
-}
+};
