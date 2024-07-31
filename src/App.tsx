@@ -22,6 +22,7 @@ import {
   TitleDemo,
   ToggleDemo,
   VisibilityDemo,
+  WhenIntervalDemo,
   WindowSizeDemo,
 } from "./AuxiliarComponents";
 
@@ -140,6 +141,10 @@ const App = () => (
 
       <HookContainer title="Media query">
         <MediaQueryDemo />
+      </HookContainer>
+
+      <HookContainer title="Conditional interval">
+        <WhenIntervalDemo />
       </HookContainer>
     </div>
   </div>

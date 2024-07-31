@@ -27,6 +27,7 @@ import { useWindowSize } from "./hooks/useWindowSize";
 import { useRandomInterval } from "./hooks/useRandomInterval";
 import { useEventListener } from "./hooks/useEventListener";
 import { useMediaQuery } from "./hooks/useMediaQuery";
+import useIntervalWhen from "./hooks/useIntervalWhen";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -729,6 +730,33 @@ export const MediaQueryDemo = () => {
         768px) or desktop
       </p>
       <p style={{ fontSize: "4rem" }}>{isMobile ? "📱" : "💻"}</p>
+    </>
+  );
+};
+
+export const WhenIntervalDemo = () => {
+  const [count, setCount] = useState(0);
+  const [when, setWhen] = useState(false);
+
+  useIntervalWhen(
+    () => {
+      setCount((c) => c + 0.1);
+    },
+    { ms: 100, when, startImmediately: true }
+  );
+
+  return (
+    <>
+      <p>Click to toggle the timer</p>
+      <div className="interval">
+        {count.toLocaleString("en-US", {
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2,
+        })}
+      </div>
+      <button title="Click to toggle the timer" onClick={() => setWhen(!when)}>
+        {when ? "stop" : "start"}
+      </button>
     </>
   );
 };
