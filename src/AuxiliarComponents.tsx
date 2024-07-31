@@ -26,6 +26,7 @@ import { useVisibilityChange } from "./hooks/useVisibilityChange";
 import { useWindowSize } from "./hooks/useWindowSize";
 import { useRandomInterval } from "./hooks/useRandomInterval";
 import { useEventListener } from "./hooks/useEventListener";
+import { useMediaQuery } from "./hooks/useMediaQuery";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -714,6 +715,20 @@ export const RandomIntervalDemo = () => {
       <button className="primary" onClick={stopTimeout}>
         Stop
       </button>
+    </>
+  );
+};
+
+export const MediaQueryDemo = () => {
+  const isMobile = useMediaQuery("only screen and (max-width : 768px)");
+
+  return (
+    <>
+      <p>
+        The emoji will update depending if the device size is mobile (less than
+        768px) or desktop
+      </p>
+      <p style={{ fontSize: "4rem" }}>{isMobile ? "📱" : "💻"}</p>
     </>
   );
 };

@@ -11,6 +11,7 @@ import {
   IntervalDemo,
   LanguageDemo,
   ListDemo,
+  MediaQueryDemo,
   ObjectStateDemo,
   PreviousDemo,
   QueueContainer,
@@ -135,6 +136,10 @@ const App = () => (
 
       <HookContainer title="Event listener">
         <EventListenerDemo />
+      </HookContainer>
+
+      <HookContainer title="Media query">
+        <MediaQueryDemo />
       </HookContainer>
     </div>
   </div>
