@@ -3,10 +3,10 @@ import { MutableRefObject, useLayoutEffect, useRef, useState } from "react";
 interface MousePosition {
   x: number;
   y: number;
-  elementX?: number;
-  elementY?: number;
-  elementPositionX?: number;
-  elementPositionY?: number;
+  elementX: number;
+  elementY: number;
+  elementPositionX: number;
+  elementPositionY: number;
 }
 
 export const useMouse = <T extends HTMLElement>(): [
@@ -26,7 +26,7 @@ export const useMouse = <T extends HTMLElement>(): [
 
   useLayoutEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      const newState: MousePosition = {
+      const newState: Partial<MousePosition> = {
         x: event.pageX,
         y: event.pageY,
       };

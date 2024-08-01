@@ -28,6 +28,7 @@ import { useRandomInterval } from "./hooks/useRandomInterval";
 import { useEventListener } from "./hooks/useEventListener";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 import useIntervalWhen from "./hooks/useIntervalWhen";
+import { useMouse } from "./hooks/useMouse";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -757,6 +758,62 @@ export const WhenIntervalDemo = () => {
       <button title="Click to toggle the timer" onClick={() => setWhen(!when)}>
         {when ? "stop" : "start"}
       </button>
+    </>
+  );
+};
+
+export const MouseDemo = () => {
+  const [mouse, ref] = useMouse();
+
+  const xIntersecting = mouse.elementX > 0 && mouse.elementX < 300;
+  const yIntersecting = mouse.elementY > 0 && mouse.elementY < 300;
+  const isIntersecting = xIntersecting && yIntersecting;
+
+  return (
+    <>
+      <FlexDiv>
+        <article
+          ref={ref}
+          style={{
+            width: "300px",
+            height: "300px",
+            backgroundColor: isIntersecting ? "green" : "",
+            alignContent: "center",
+            borderRadius: "16px",
+            border: "2px dashed",
+          }}
+        >
+          Use a ref to add coords relative to the element
+        </article>
+      </FlexDiv>
+      <FlexDiv>
+        <table>
+          <tr>
+            <th colSpan={2}>MOUSE POSITION</th>
+          </tr>
+          <tr>
+            <td>x</td>
+            <td>{mouse.x}</td>
+          </tr>
+          <tr>
+            <td>y</td>
+            <td>{mouse.y}</td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colSpan={2}>RELATIVE TO REF</th>
+          </tr>
+          <tr>
+            <td>elementX</td>
+            <td>{Math.trunc(mouse.elementX)}</td>
+          </tr>
+          <tr>
+            <td>elementY</td>
+            <td>{Math.trunc(mouse.elementY)}</td>
+          </tr>
+        </table>
+      </FlexDiv>
     </>
   );
 };

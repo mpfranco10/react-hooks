@@ -12,6 +12,7 @@ import {
   LanguageDemo,
   ListDemo,
   MediaQueryDemo,
+  MouseDemo,
   ObjectStateDemo,
   PreviousDemo,
   QueueContainer,
@@ -145,6 +146,10 @@ const App = () => (
 
       <HookContainer title="Conditional interval">
         <WhenIntervalDemo />
+      </HookContainer>
+
+      <HookContainer title="Mouse position">
+        <MouseDemo />
       </HookContainer>
     </div>
   </div>
