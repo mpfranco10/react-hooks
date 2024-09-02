@@ -29,6 +29,7 @@ import { useEventListener } from "./hooks/useEventListener";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 import useIntervalWhen from "./hooks/useIntervalWhen";
 import { useMouse } from "./hooks/useMouse";
+import { useClickAway } from "./hooks/useClickAway";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -814,6 +815,41 @@ export const MouseDemo = () => {
           </tr>
         </table>
       </FlexDiv>
+    </>
+  );
+};
+
+export const ClickAwayDemo = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useClickAway<HTMLDialogElement>(() => {
+    setIsOpen(false);
+  });
+
+  const handleOpenModal = () => {
+    if (isOpen === false) {
+      setIsOpen(true);
+    }
+  };
+
+  return (
+    <>
+      <button onClick={handleOpenModal}>Open Modal</button>
+      {isOpen && (
+        <dialog
+          ref={ref}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            top: "40%",
+          }}
+        >
+          <h2>Modal</h2>
+          <p>Click outside the modal to close it</p>
+        </dialog>
+      )}
     </>
   );
 };

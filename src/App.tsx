@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import "./App.css";
 import {
+  ClickAwayDemo,
   CopyDemo,
   CounterDemo,
   DebounceDemo,
@@ -150,6 +151,10 @@ const App = () => (
 
       <HookContainer title="Mouse position">
         <MouseDemo />
+      </HookContainer>
+
+      <HookContainer title="Click away">
+        <ClickAwayDemo />
       </HookContainer>
     </div>
   </div>

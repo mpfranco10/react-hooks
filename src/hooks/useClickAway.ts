@@ -4,8 +4,10 @@ import {
   useRef,
 } from "react";
 
-export const useClickAway = (cb: (e?: MouseEvent | TouchEvent) => void) => {
-  const ref = useRef<HTMLElement>(null);
+export const useClickAway = <T extends HTMLElement>(
+  cb: (e?: MouseEvent | TouchEvent) => void
+) => {
+  const ref = useRef<T>(null);
 
   const onEventHandler = useEffectEvent((e: MouseEvent | TouchEvent) => {
     const element = ref.current;
