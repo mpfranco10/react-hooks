@@ -30,6 +30,7 @@ import { useMediaQuery } from "./hooks/useMediaQuery";
 import useIntervalWhen from "./hooks/useIntervalWhen";
 import { useMouse } from "./hooks/useMouse";
 import { useClickAway } from "./hooks/useClickAway";
+import { useWindowScroll } from "./hooks/useWindowScroll";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -850,6 +851,31 @@ export const ClickAwayDemo = () => {
           <p>Click outside the modal to close it</p>
         </dialog>
       )}
+    </>
+  );
+};
+
+export const WindowScrollDemo = () => {
+  const [{ x, y }, scrollTo] = useWindowScroll();
+
+  return (
+    <>
+      <FlexDiv>
+        <button onClick={() => scrollTo({ left: 0, top: 500 })}>
+          Scroll To (0, 500)
+        </button>
+        <button
+          onClick={() => scrollTo({ left: 0, top: 300, behavior: "smooth" })}
+        >
+          Scroll To (0, 300) (Smoothly)
+        </button>
+        <button
+          onClick={() => scrollTo({ left: 0, top: 0, behavior: "smooth" })}
+        >
+          Back To The Top
+        </button>
+      </FlexDiv>
+      <p>{`Coordinates: X = ${x}, Y = ${y}`}</p>
     </>
   );
 };

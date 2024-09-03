@@ -25,6 +25,7 @@ import {
   ToggleDemo,
   VisibilityDemo,
   WhenIntervalDemo,
+  WindowScrollDemo,
   WindowSizeDemo,
 } from "./AuxiliarComponents";
 
@@ -155,6 +156,10 @@ const App = () => (
 
       <HookContainer title="Click away">
         <ClickAwayDemo />
+      </HookContainer>
+
+      <HookContainer title="Window scroll">
+        <WindowScrollDemo />
       </HookContainer>
     </div>
   </div>
