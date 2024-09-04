@@ -13,6 +13,6 @@ const getServerSnapshot = () => {
   throw Error("usePreferredLanguage is a client-only hook");
 };
 
-export default function usePreferredLanguage() {
+export const usePreferredLanguage = () => {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
+};

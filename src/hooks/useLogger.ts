@@ -4,7 +4,7 @@ import {
   useRef,
 } from "react";
 
-export default function useLogger(name: string, ...rest: unknown[]) {
+export const useLogger = (name: string, ...rest: unknown[]) => {
   const initialRenderRef = useRef(true);
 
   const handleLog = useEffectEvent((eventName: string) => {
@@ -13,17 +13,17 @@ export default function useLogger(name: string, ...rest: unknown[]) {
 
   useEffect(() => {
     if (initialRenderRef.current === false) {
-      handleLog("updated");
+      handleLog("component rerendered");
     }
   });
 
   useEffect(() => {
-    handleLog("mounted");
+    handleLog("component mounted");
     initialRenderRef.current = false;
 
     return () => {
-      handleLog("unmounted");
+      handleLog("component unmounted");
       initialRenderRef.current = true;
     };
   }, []);
-}
+};

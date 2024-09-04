@@ -11,10 +11,10 @@ interface IntervalWhenOptions {
   startImmediately: boolean;
 }
 
-export default function useIntervalWhen(
+export const useIntervalWhen = (
   cb: () => void,
   { ms, when, startImmediately }: IntervalWhenOptions
-) {
+) => {
   const id = useRef(0);
   const immediatelyCalled = useRef(startImmediately ? false : null);
 
@@ -39,4 +39,4 @@ export default function useIntervalWhen(
   }, [ms, when, startImmediately, handleClearInterval]);
 
   return handleClearInterval;
-}
+};

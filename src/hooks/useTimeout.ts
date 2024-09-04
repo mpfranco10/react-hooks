@@ -5,7 +5,7 @@ import {
   useRef,
 } from "react";
 
-export default function useTimeout(cb: () => void, ms: number) {
+export const useTimeout = (cb: () => void, ms: number) => {
   const timerRef = useRef(0);
 
   const clear = useCallback(() => {
@@ -21,4 +21,4 @@ export default function useTimeout(cb: () => void, ms: number) {
   }, [ms, clear]);
 
   return clear;
-}
+};

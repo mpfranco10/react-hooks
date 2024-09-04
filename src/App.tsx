@@ -23,6 +23,7 @@ import {
   TimeoutDemo,
   TitleDemo,
   ToggleDemo,
+  UseLoggerDemo,
   VisibilityDemo,
   WhenIntervalDemo,
   WindowScrollDemo,
@@ -160,6 +161,10 @@ const App = () => (
 
       <HookContainer title="Window scroll">
         <WindowScrollDemo />
+      </HookContainer>
+
+      <HookContainer title="Use logger">
+        <UseLoggerDemo />
       </HookContainer>
     </div>
   </div>

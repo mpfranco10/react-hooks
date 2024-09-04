@@ -1,36 +1,38 @@
 import { startCase } from "lodash";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { useContinuousRetry } from "./hooks/useContinuousRetry";
-import { useCopyToClipboard } from "./hooks/useCopyToClipboard";
-import { useCounter } from "./hooks/useCounter";
-import { useDebounce } from "./hooks/useDebounce";
-import { useDefault } from "./hooks/useDefault";
-import { useDocumentTitle } from "./hooks/useDocumentTitle";
 import {
   BYTES_ICON,
   NEWSLETTER_ICON,
   UI_DEV_ICON,
   useFavicon,
 } from "./hooks/useFavicon";
+
+import { useContinuousRetry } from "./hooks/useContinuousRetry";
+import { useCopyToClipboard } from "./hooks/useCopyToClipboard";
+import { useCounter } from "./hooks/useCounter";
+import { useDebounce } from "./hooks/useDebounce";
+import { useDefault } from "./hooks/useDefault";
+import { useDocumentTitle } from "./hooks/useDocumentTitle";
 import { useHistoryState } from "./hooks/useHistoryState";
 import { useInterval } from "./hooks/useInterval";
 import { useList } from "./hooks/useList";
 import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
 import { useObjectState } from "./hooks/useObjectState";
-import usePreferredLanguage from "./hooks/usePreferredLanguage";
+import { usePreferredLanguage } from "./hooks/usePreferredLanguage";
 import { usePrevious } from "./hooks/usePrevious";
 import { useQueue } from "./hooks/useQueue";
-import useTimeout from "./hooks/useTimeout";
+import { useTimeout } from "./hooks/useTimeout";
 import { useToggle } from "./hooks/useToggle";
 import { useVisibilityChange } from "./hooks/useVisibilityChange";
 import { useWindowSize } from "./hooks/useWindowSize";
 import { useRandomInterval } from "./hooks/useRandomInterval";
 import { useEventListener } from "./hooks/useEventListener";
 import { useMediaQuery } from "./hooks/useMediaQuery";
-import useIntervalWhen from "./hooks/useIntervalWhen";
+import { useIntervalWhen } from "./hooks/useIntervalWhen";
 import { useMouse } from "./hooks/useMouse";
 import { useClickAway } from "./hooks/useClickAway";
 import { useWindowScroll } from "./hooks/useWindowScroll";
+import { useLogger } from "./hooks/useLogger";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -562,7 +564,7 @@ export const DebounceDemo = () => {
   );
 };
 
-export const RetryDemo = () => {
+const RetryComponent = () => {
   const [count, setCount] = useState(0);
   const [delay, setDelay] = useState(1000);
   const hasResolved = useContinuousRetry(() => {
@@ -571,10 +573,6 @@ export const RetryDemo = () => {
 
   return (
     <>
-      <p>
-        This function will run until count reaches 5. See console output to see
-        function retrying
-      </p>
       <FlexDiv>
         <button className="primary" onClick={() => setCount(count + 1)}>
           Increase count
@@ -590,6 +588,26 @@ export const RetryDemo = () => {
       </FlexDiv>
 
       <pre>{JSON.stringify({ hasResolved, count }, null, 2)}</pre>
+    </>
+  );
+};
+
+export const RetryDemo = () => {
+  const [showComponent, setShowComponent] = useState(false);
+
+  return (
+    <>
+      <p>
+        This function will run until count reaches 5. See console output to see
+        function retrying
+      </p>
+      <button
+        onClick={() => setShowComponent(!showComponent)}
+        style={{ marginBottom: "1rem" }}
+      >
+        {`${showComponent ? "Hide" : "Show"} component`}
+      </button>
+      {showComponent && <RetryComponent />}
     </>
   );
 };
@@ -876,6 +894,32 @@ export const WindowScrollDemo = () => {
         </button>
       </FlexDiv>
       <p>{`Coordinates: X = ${x}, Y = ${y}`}</p>
+    </>
+  );
+};
+
+const SumComponent = () => {
+  const [count, setCount] = useState(0);
+  useLogger("sum", count);
+
+  return (
+    <>
+      <p> Count is {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>Increase count</button>
+    </>
+  );
+};
+
+export const UseLoggerDemo = () => {
+  const [showComponent, setShowComponent] = useState(false);
+
+  return (
+    <>
+      <p>Mount or unmount the component and see the console output</p>
+      <button onClick={() => setShowComponent(!showComponent)}>
+        Toggle show
+      </button>
+      {showComponent && <SumComponent />}
     </>
   );
 };
