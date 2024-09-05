@@ -33,6 +33,8 @@ import { useMouse } from "./hooks/useMouse";
 import { useClickAway } from "./hooks/useClickAway";
 import { useWindowScroll } from "./hooks/useWindowScroll";
 import { useLogger } from "./hooks/useLogger";
+import { UNKNOWN_ORIENTATION, useOrientation } from "./hooks/useOrientation";
+import { useBattery } from "./hooks/useBattery";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -920,6 +922,60 @@ export const UseLoggerDemo = () => {
         Toggle show
       </button>
       {showComponent && <SumComponent />}
+    </>
+  );
+};
+
+export const ScreenOrientationDemo = () => {
+  const { angle, type } = useOrientation();
+  const orientationWord = type.includes("portrait") ? "Portrait" : "Landscape";
+  const orientationType =
+    type === UNKNOWN_ORIENTATION ? "Not available" : orientationWord;
+
+  return (
+    <>
+      <p>The screen orientation is:</p>
+      <p>{`Angle: ${angle}, Type:  ${orientationType}`}</p>
+    </>
+  );
+};
+
+export const BatteryDemo = () => {
+  const { loading, level, charging, chargingTime, dischargingTime } =
+    useBattery();
+
+  return (
+    <>
+      <p>🔋Device battery information</p>
+      {!loading ? (
+        <table style={{ width: "100%" }}>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Battery level</td>
+            <td> {level ? `${level * 100}%` : "Unknown"}</td>
+          </tr>
+          <tr>
+            <td>Charging</td>
+            <td> {charging ? "Yes" : "No"}</td>
+          </tr>
+          <tr>
+            <td>Minutes to full charge</td>
+            <td> {chargingTime ? Math.floor(chargingTime / 60) : "Unknown"}</td>
+          </tr>
+          <tr>
+            <td>Minutes to discharge</td>
+            <td>
+              {" "}
+              {dischargingTime ? Math.floor(dischargingTime / 60) : "Unknown"}
+            </td>
+          </tr>
+        </table>
+      ) : (
+        <h2>Loading...</h2>
+      )}
     </>
   );
 };

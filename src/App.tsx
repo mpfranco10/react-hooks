@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import "./App.css";
 import {
+  BatteryDemo,
   ClickAwayDemo,
   CopyDemo,
   CounterDemo,
@@ -19,6 +20,7 @@ import {
   QueueContainer,
   RandomIntervalDemo,
   RetryDemo,
+  ScreenOrientationDemo,
   ScrollDemo,
   TimeoutDemo,
   TitleDemo,
@@ -165,6 +167,14 @@ const App = () => (
 
       <HookContainer title="Use logger">
         <UseLoggerDemo />
+      </HookContainer>
+
+      <HookContainer title="Screen orientation">
+        <ScreenOrientationDemo />
+      </HookContainer>
+
+      <HookContainer title="Use battery">
+        <BatteryDemo />
       </HookContainer>
     </div>
   </div>
