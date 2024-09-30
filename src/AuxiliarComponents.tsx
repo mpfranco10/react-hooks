@@ -35,6 +35,7 @@ import { useWindowScroll } from "./hooks/useWindowScroll";
 import { useLogger } from "./hooks/useLogger";
 import { UNKNOWN_ORIENTATION, useOrientation } from "./hooks/useOrientation";
 import { useBattery } from "./hooks/useBattery";
+import { usePageLeave } from "./usePageLeave";
 
 export const FlexDiv = ({
   rowDirection = true,
@@ -976,6 +977,18 @@ export const BatteryDemo = () => {
       ) : (
         <h2>Loading...</h2>
       )}
+    </>
+  );
+};
+
+export const PageLeaveDemo = () => {
+  const [count, setCount] = useState(0);
+  usePageLeave(() => setCount((c) => c + 1));
+
+  return (
+    <>
+      <p>Times you moved the mouse out of the page:</p>
+      <p>{count}</p>
     </>
   );
 };

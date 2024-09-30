@@ -16,6 +16,7 @@ import {
   MediaQueryDemo,
   MouseDemo,
   ObjectStateDemo,
+  PageLeaveDemo,
   PreviousDemo,
   QueueContainer,
   RandomIntervalDemo,
@@ -175,6 +176,10 @@ const App = () => (
 
       <HookContainer title="Use battery">
         <BatteryDemo />
+      </HookContainer>
+
+      <HookContainer title="Use page leave">
+        <PageLeaveDemo />
       </HookContainer>
     </div>
   </div>
