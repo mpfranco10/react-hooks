@@ -55,7 +55,7 @@ const HookContainer = ({
 
 const App = () => {
   useEffect(() => {
-    hotjar.initialize({ id: 5194295, sv: 0 });
+    hotjar.initialize({ id: 5194333, sv: 6 });
     console.log("init hotjar");
   }, []);
 
