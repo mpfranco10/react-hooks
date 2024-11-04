@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import "./App.css";
 import {
   BatteryDemo,
@@ -32,7 +32,6 @@ import {
   WindowScrollDemo,
   WindowSizeDemo,
 } from "./AuxiliarComponents";
-import { hotjar } from "react-hotjar";
 
 const HookContainer = ({
   title,
@@ -54,11 +53,6 @@ const HookContainer = ({
 );
 
 const App = () => {
-  useEffect(() => {
-    hotjar.initialize({ id: 5194333, sv: 6 });
-    console.log("init hotjar");
-  }, []);
-
   return (
     <div>
       <h1>useHooks rebuild</h1>
